@@ -56,7 +56,7 @@ export default function LeaderboardScreen() {
             >
               <Text style={styles.medal}>{medals[index]}</Text>
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.bac}>{item.bac.toFixed(2)}%</Text>
+              <Text style={styles.bac}>{(item.bac / 100).toFixed(2)}</Text>
             </View>
           );
         })}
@@ -69,7 +69,7 @@ export default function LeaderboardScreen() {
         renderItem={({ item, index }) => (
           <View style={styles.item}>
             <Text style={styles.name}>{index + 4}. {item.name}</Text>
-            <Text style={styles.bac}>{item.bac.toFixed(2)}%</Text>
+            <Text style={styles.bac}>{(item.bac / 100).toFixed(2)}</Text>
           </View>
         )}
         ListEmptyComponent={

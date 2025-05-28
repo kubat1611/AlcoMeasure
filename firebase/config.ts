@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
 
   apiKey: "AIzaSyAdsGxmT83nHhWwqw-dD1QQOVohb1qnMm8",
@@ -22,5 +21,4 @@ storageBucket: "alkoaware.appspot.com",
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
-export { db, auth  };
+export { db  };
