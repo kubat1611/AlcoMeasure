@@ -55,6 +55,7 @@ export default function HomeScreen() {
         <View style={styles.widget}>
           <Text style={styles.widgetTitle}>Latest Measurement:</Text>
           <Text style={styles.bac}>BAC: {lastMeasurement.bac.toFixed(2)} %</Text>
+          <Text style={styles.bac}>Promile: {(lastMeasurement.bac / 100).toFixed(2)} </Text>
         </View>
       )}
     </View>

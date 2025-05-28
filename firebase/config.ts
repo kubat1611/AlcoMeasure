@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-
+import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
 
   apiKey: "AIzaSyAdsGxmT83nHhWwqw-dD1QQOVohb1qnMm8",
@@ -9,7 +9,7 @@ const firebaseConfig = {
 
   projectId: "alkoaware",
 
-  storageBucket: "alkoaware.firebasestorage.app",
+storageBucket: "alkoaware.appspot.com",
 
   messagingSenderId: "527461445764",
 
@@ -22,5 +22,5 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-export { db };
+const auth = getAuth(app);
+export { db, auth  };

@@ -14,33 +14,47 @@ export default function HistoryScreen() {
         orderBy('timestamp', 'desc')
       );
       const snapshot = await getDocs(q);
-      setData(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const formatted = snapshot.docs.map(doc => {
+        const d = doc.data();
+        return {
+          id: doc.id,
+          ...d,
+          timestamp: d.timestamp?.toDate?.() || new Date(0), // Firestore Timestamp -> JS Date
+        };
+      });
+      setData(formatted);
       setLoading(false);
     };
     fetchMeasurements();
   }, []);
 
   return (
-   <View style={styles.container}>
-  <Text style={styles.title}>Measurement History</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Measurement History</Text>
 
-  <FlatList
-    data={data}
-    keyExtractor={(item) => item.id}
-    renderItem={({ item }) => (
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>BAC: {item.bac.toFixed(2)} %</Text>
-        <Text style={styles.cardSubtitle}>Time since: {item.hoursAgo} hour(s)</Text>
-      </View>
-    )}
-    ListEmptyComponent={
-      !loading ? (
-        <Text style={styles.emptyText}>No measurements saved yet.</Text>
-      ) : null
-    }
-  />
-</View>
-
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>
+              Promile: {(item.bac / 100).toFixed(2)}
+            </Text>
+            <Text style={styles.cardTitle}>
+              BAC: {item.bac.toFixed(2)}%
+            </Text>
+            <Text style={styles.cardSubtitle}>
+              Date: {item.timestamp.toLocaleString()}
+            </Text>
+          </View>
+        )}
+        ListEmptyComponent={
+          !loading ? (
+            <Text style={styles.emptyText}>No measurements saved yet.</Text>
+          ) : null
+        }
+      />
+    </View>
   );
 }
 
@@ -66,7 +80,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 2, // for Android
+    elevation: 2,
   },
   cardTitle: {
     fontSize: 18,
